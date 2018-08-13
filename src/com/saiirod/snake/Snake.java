@@ -16,6 +16,11 @@ public class Snake {
 	private PlayState map;
 	private boolean up, down, left, right;
 
+	/**
+	 * Constructeur de classe
+	 * @param map Le jeu
+	 * @param tileSize taille des cellules
+	 */
 	public Snake(PlayState map, int tileSize) {
 		width = height = tileSize;
 		mapWidth = map.getWidth();
@@ -23,12 +28,20 @@ public class Snake {
 		this.map = map;
 	}
 
+	/**
+	 * Initialisation des variables pour une nouvelle partie
+	 */
 	public void init() {
 		cells = new ArrayList<Point>();
 		cells.add(new Point(x, y));
 		up = down = left = right = false;
 	}
 
+	/**
+	 * Change l'emplacement de la tete du snake à X,Y et vérifie que ces coordonnées ne sont pas outOfBounds
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition(int x, int y) {
 		if (x < 1) x = 1;
 		if (x > mapWidth - 1) x = mapWidth - 1;
@@ -38,6 +51,11 @@ public class Snake {
 		this.y = y;
 	}
 
+	/**
+	 * Déplace l'intégralité du snake aux coordonnées x,y. 
+	 * @param x
+	 * @param y
+	 */
 	public void moveTo(int x, int y) {
 		if (x == 0 || x == mapWidth - 1 || y == 0 || y == mapHeight - 1 || collide(x, y)) {
 			map.setLost();
@@ -64,10 +82,22 @@ public class Snake {
 		}
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return True si un token se trouve aux coordonnées x,y
+	 */
 	private boolean hasToken(int x, int y) {
 		return (map.getTokenX() == x && map.getTokenY() == y);
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return True si le snake se percute sur lui même
+	 */
 	private boolean collide(int x, int y) {
 		boolean result = false;
 		for (Point p : cells) {
@@ -79,6 +109,12 @@ public class Snake {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true si le snake ne se trouve pas aux coordonnés x,y
+	 */
 	public boolean notAt(int x, int y) {
 		return !collide(x, y);
 	}
@@ -114,6 +150,10 @@ public class Snake {
 		}
 	}
 
+	/**
+	 * Crée le snake sur l'objet Graphics
+	 * @param g
+	 */
 	public void render(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(x * width, y * height, width, height);

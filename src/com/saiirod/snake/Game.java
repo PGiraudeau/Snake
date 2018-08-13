@@ -21,6 +21,10 @@ public class Game extends Canvas implements Runnable {
 	private PlayState playState;
 	private InputHandler inputs;
 
+	
+	/**
+	 * Initiatilisation du keyListener, de la frame, et du jeu
+	 */
 	private void init() {
 		screen = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		playState = new PlayState(WIDTH, HEIGHT, 8);
@@ -28,6 +32,9 @@ public class Game extends Canvas implements Runnable {
 		addKeyListener(inputs);
 	}
 
+	/**
+	 * Démarre le main thread
+	 */
 	public void start() {
 		if (running) return;
 		running = true;
@@ -36,6 +43,9 @@ public class Game extends Canvas implements Runnable {
 		thread.start();
 	}
 
+	/**
+	 * Stop le main thread
+	 */
 	public void stop() {
 		if (!running) return;
 		running = false;
@@ -47,6 +57,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * Main loop, process la logic et le graphic 10 boucle par seconde et drop le reste.
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		double nanoPerTick = 1e9 / 10.0;
@@ -76,10 +89,16 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * Game logic
+	 */
 	public void tick() {
 		playState.tick();
 	}
 
+	/**
+	 * Game graphic
+	 */
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -99,6 +118,10 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 	}
 
+	/**
+	 * InputLister pour gérer les pressions des touches sur le clavier
+	 * @param k Touche du clavier appuyé
+	 */
 	public void keyPressed(int k) {
 		playState.keyPressed(k);
 	}

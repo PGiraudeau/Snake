@@ -26,6 +26,9 @@ public class PlayState {
 		init();
 	}
 
+	/**
+	 * Initialise une nouvelle partie
+	 */
 	private void init() {
 		score = 0;
 		snake = new Snake(this, tileSize);
@@ -43,6 +46,10 @@ public class PlayState {
 		}
 	}
 
+	/**
+	 * Crée chaque pixel de la fenetre et passe l'objet Graphics à l'objet snake
+	 * @param g
+	 */
 	public void render(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.setFont(scoreFont);
